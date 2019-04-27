@@ -18,7 +18,11 @@ function renderTable (renderData) {
 
 renderTable(tableData);
 
+
+
 var submit = d3.select("#filter-btn");
+
+
 
 submit.on("click", function() {
 
@@ -28,13 +32,20 @@ submit.on("click", function() {
   // Select the input element and get the raw HTML node
   var inputValue = d3.select("#datetime").node().value;
 
-
   console.log(inputValue);
-  console.log(tableData);
 
-  var filteredData = tableData.filter(tableData => tableData.datetime === inputValue);
+  if (inputValue == "") {
+    renderTable(tableData)
+  }
 
-  console.log(filteredData);
-
-  renderTable(filteredData);
+  else {
+    
+    var filteredData = tableData.filter(tableData => tableData.datetime === inputValue);
+    
+    console.log(filteredData);
+    
+    d3.selectAll("td").remove();
+    
+    renderTable(filteredData);
+  }
 });
